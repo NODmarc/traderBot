@@ -1,0 +1,14 @@
+
+# Default ignored files
+/shelf/
+/workspace.xml
+/.gitignore
+/misc.xml
+/modules.xml
+/inspectionProfiles/profiles_settings.xml
+/inspectionProfiles/Project_Default.xml
+/RogaKopitaCorp.iml
+/vcs.xml
+/.venv
+__pycache__/
+.env
