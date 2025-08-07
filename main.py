@@ -18,12 +18,12 @@ def job_send_signal():
         df = bybit_client.get_kline(symbol, interval, limit)
         df = indicators.add_indicators(df)
         signal = strategy_rules.generate_signals(df)
-        # gpt_response = chatgpt_assistant.ask_gpt_about_market(df)
+        gpt_response = chatgpt_assistant.ask_gpt_about_market(df)
 
         for chat_id in chat_ids:
             try:
                 bot.send_telegram_signal(chat_id, signal)
-                # bot.send_telegram_ai_analyse(chat_id, gpt_response)
+                bot.send_telegram_ai_analyse(chat_id, gpt_response)
             except Exception as e:
                 print(f"❌ Ошибка при отправке сигнала в чат {chat_id}: {e}")
         print("✅ Сигнал и аналитика отправлены")
