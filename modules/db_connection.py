@@ -1,15 +1,10 @@
 import psycopg2
-from config import HOST, USER, PASSWORD, DB_NAME
+from config import DATABASE_URL
 
 def get_all_chat_ids():
     chat_ids = []
     try:
-        connection = psycopg2.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=DB_NAME
-        )
+        connection = psycopg2.connect(DATABASE_URL)
         with connection.cursor() as cursor:
             cursor.execute("SELECT chat_id FROM telegram_users")
             rows = cursor.fetchall()
@@ -25,12 +20,7 @@ def get_all_chat_ids():
 def insert_subscribers(chat_id):
     try:
         # connect db
-        connection = psycopg2.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=DB_NAME
-        )
+        connection = psycopg2.connect(DATABASE_URL)
 
         # the cursor for performing db operation
         with connection.cursor() as cursor:
@@ -50,12 +40,7 @@ def insert_subscribers(chat_id):
 
 def delete_subscriber(chat_id):
     try:
-        connection = psycopg2.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=DB_NAME
-        )
+        connection = psycopg2.connect(DATABASE_URL)
         with connection.cursor() as cursor:
             cursor.execute(
                 "DELETE FROM telegram_users WHERE chat_id = %s",
