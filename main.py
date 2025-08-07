@@ -35,7 +35,7 @@ def job_send_signal():
 def start_scheduler():
     # schedule.every().hour.at(":00")
     schedule.every().minutes.do(job_send_signal)
-    print("🕒 Планировщик запущен: сигналы будут отправляться каждые 10 секунд.")
+    print("🕒 Планировщик запущен: сигналы будут отправляться каждый час.")
     try:
         while True:
             schedule.run_pending()

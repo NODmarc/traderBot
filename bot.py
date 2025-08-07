@@ -34,7 +34,6 @@ def send_telegram_signal(chat_id, signal):
             print(f"✅ Сигнал отправлен в чат {chat_id}")
         else:
             print(f"❌ Ошибка Telegram API для чата {chat_id}: {response.text}")
-        requests.post(url, data=payload)
     except Exception as e:
         print(f"❌ Ошибка при отправке в чат {chat_id}: {e}")
 
@@ -47,7 +46,11 @@ def send_telegram_ai_analyse(chat_id, signal):
         "parse_mode": "Markdown"
     }
     try:
-        requests.post(url, data=payload)
+        response = requests.post(url, data=payload)
+        if response.status_code == 200:
+            print(f"✅ Аналитика отправлена в чат {chat_id}")
+        else:
+            print(f"❌ Ошибка Telegram API для чата {chat_id}: {response.text}")
     except Exception as e:
         print(f"❌ Ошибка при отправке в чат {chat_id}: {e}")
 
