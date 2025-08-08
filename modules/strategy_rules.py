@@ -12,20 +12,20 @@ def generate_signals(df):
 
     # --- Проверка наличия тренда (ADX) ---
     if adx < 20:
-        return "NO_TREND"
+        return "NO TREND"
 
     # --- RSI фильтры ---
     if rsi > 70:
-        return "RSI - AVOID_BUY"
+        return "RSI - AVOID BUY"
     elif rsi < 30:
-        return "RSI - AVOID_SELL"
+        return "RSI - AVOID SELL"
 
     # --- MACD сигналы ---
     macd_signal = None
     if signal > 0 and 0 < macd < signal:
-        macd_signal = "MACD - STRONG_BUY"
+        macd_signal = "MACD - STRONG BUY"
     elif signal < 0 and 0 > macd > signal:
-        macd_signal = "MACD - STRONG_SELL"
+        macd_signal = "MACD - STRONG SELL"
     elif 0 < signal < macd and macd > 0:
         macd_signal = "MACD - BUY"
     elif 0 > signal > macd and macd < 0:
@@ -34,10 +34,10 @@ def generate_signals(df):
         macd_signal = "MACD - NEUTRAL"
 
     # --- Комбинирование MACD с EMA и RSI ---
-    if macd_signal == "STRONG_BUY" and close > ema20 > ema50 and rsi > 50 and plus_di > minus_di:
-        return "MACD с EMA и RSI  - STRONG_BUY"
+    if macd_signal == "STRONG BUY" and close > ema20 > ema50 and rsi > 50 and plus_di > minus_di:
+        return "MACD с EMA и RSI  - STRONG BUY"
     elif macd_signal == "STRONG_SELL" and close < ema20 < ema50 and rsi < 50 and minus_di > plus_di:
-        return "MACD с EMA и RSI  - STRONG_SELL"
+        return "MACD с EMA и RSI  - STRONG SELL"
     elif macd_signal == "BUY" and close > ema20 and rsi > 50:
         return "MACD с EMA и RSI - BUY"
     elif macd_signal == "SELL" and close < ema20 and rsi < 50:

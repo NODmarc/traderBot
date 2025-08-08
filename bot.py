@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 import requests
 from config import TELEGRAM_BOT_API_KEY
 import telebot
@@ -21,7 +22,7 @@ def stop_message(message):
     bot.send_message(message.chat.id, "Вы отписались от сигналов.")
 
 def send_telegram_signal(chat_id, signal):
-    now = datetime.now(timezone.utc).strftime('%d %b %Y UTC %H:%M')
+    now = datetime.now(ZoneInfo("Europe/Riga")).strftime('%d %b %Y UTC %H:%M')
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_API_KEY}/sendMessage"
     payload = {
         "chat_id": chat_id,
@@ -35,10 +36,10 @@ def send_telegram_signal(chat_id, signal):
         else:
             print(f"❌ Ошибка Telegram API для чата {chat_id}: {response.text}")
     except Exception as e:
-        print(f"❌ Ошибка при отправке в чат {chat_id}: {e}")
+        print(f"❌ Ошибка при отправке сигнала в чат {chat_id}: {e}")
 
 def send_telegram_ai_analyse(chat_id, signal):
-    now = datetime.now(timezone.utc).strftime('%d %b %Y UTC %H:%M')
+    now = datetime.now(ZoneInfo("Europe/Riga")).strftime('%d %b %Y UTC %H:%M')
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_API_KEY}/sendMessage"
     payload = {
         "chat_id": chat_id,
@@ -48,11 +49,11 @@ def send_telegram_ai_analyse(chat_id, signal):
     try:
         response = requests.post(url, data=payload)
         if response.status_code == 200:
-            print(f"✅ Аналитика отправлена в чат {chat_id}")
+            print(f"На {now}.\n\n✅ Аналитика ИИ отправлена в чат {chat_id}")
         else:
             print(f"❌ Ошибка Telegram API для чата {chat_id}: {response.text}")
     except Exception as e:
-        print(f"❌ Ошибка при отправке в чат {chat_id}: {e}")
+        print(f"❌ Ошибка при отправке ИИ аналитики в чат {chat_id}: {e}")
 
 def run_bot():
     bot.polling()

@@ -35,13 +35,13 @@ def job_send_signal():
 def start_scheduler():
     schedule.every().hour.at(":00").do(job_send_signal)
     # [DEBUG] schedule.every().minutes.do(job_send_signal)
-    print("🕒 Планировщик запущен: сигналы будут отправляться с 9:00 до 16:00 UTC.")
+    print("🕒 Планировщик запущен: сигналы будут отправляться с 8:00 до 22:00 Riga time.")
     import pytz
     riga_tz = pytz.timezone('Europe/Riga')
     try:
         while True:
             now = datetime.now(riga_tz)
-            if 9 <= now.hour < 16:
+            if 8 <= now.hour < 22:
                 schedule.run_pending()
             time.sleep(1)
     except KeyboardInterrupt:
